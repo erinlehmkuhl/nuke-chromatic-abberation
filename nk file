@@ -1,0 +1,147 @@
+set cut_paste_input [stack 0]
+version 13.0 v10
+push $cut_paste_input
+Group {
+name chromatic_abberation
+selected true
+xpos -1295
+ypos -5795
+addUserKnob {20 User}
+addUserKnob {30 offset}
+}
+Input {
+inputs 0
+name Input1
+xpos -448
+ypos -849
+}
+set N956d9000 [stack 0]
+Constant {
+inputs 0
+channels {-rgba.red -rgba.green rgba.blue none}
+color 1
+name Constant5
+xpos -624
+ypos -620
+}
+push $N956d9000
+Dot {
+name Dot2
+xpos -970
+ypos -845
+}
+Dot {
+name Dot10
+xpos -970
+ypos -718
+}
+set N956d9c00 [stack 0]
+Shuffle2 {
+fromInput1 {{0} B}
+fromInput2 {{0} B}
+mappings "4 rgba.blue 0 2 rgba.red 0 0 rgba.blue 0 2 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 rgba.blue 0 2 rgba.alpha 0 3"
+name ShuffleBLUE
+xpos -729
+ypos -550
+}
+Merge2 {
+inputs 2
+operation in
+name In1
+xpos -683
+ypos -503
+}
+Transform {
+translate {{"\[value parent.offset.u]"} {"\[value parent.offset.v]"}}
+center {2132 810}
+name Transform6
+xpos -683
+ypos -477
+}
+push 0
+Constant {
+inputs 0
+channels {rgba.red -rgba.green -rgba.blue none}
+color 1
+name Constant3
+xpos -1140
+ypos -632
+}
+push $N956d9c00
+Shuffle2 {
+fromInput1 {{0} B}
+fromInput2 {{0} B}
+mappings "4 rgba.red 0 0 rgba.alpha 0 3 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2"
+name ShuffleRED
+xpos -1239
+ypos -568
+}
+Merge2 {
+inputs 2
+operation in
+name In3
+xpos -1179
+ypos -515
+}
+Transform {
+translate {{"-\[value parent.offset.u]"} {"-\[value parent.offset.v]"}}
+center {2132 810}
+name Transform4
+xpos -1179
+ypos -482
+}
+Constant {
+inputs 0
+channels {-rgba.red rgba.green -rgba.blue none}
+color 1
+name Constant4
+xpos -892
+ypos -625
+}
+push $N956d9c00
+Shuffle2 {
+fromInput1 {{0} B}
+fromInput2 {{0} B}
+mappings "4 rgba.green 0 1 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.green 0 1 rgba.alpha 0 3 rgba.green 0 1 rgba.red 0 0"
+name ShuffleGREEN
+xpos -1004
+ypos -561
+}
+Merge2 {
+inputs 2
+operation in
+name In2
+xpos -947
+ypos -508
+}
+Transform {
+center {2132 810}
+name Transform5
+xpos -947
+ypos -482
+}
+Merge2 {
+inputs 3+1
+name Merge6
+xpos -947
+ypos -363
+}
+Dot {
+name Dot1
+xpos -913
+ypos -187
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+xpos -448
+ypos -199
+}
+Output {
+name Output1
+xpos -448
+ypos -17
+}
+end_group
